@@ -1,86 +1,64 @@
 <template>
-  <div class="diary-section">
-    <h3 class="section-title">
-      恋爱日记
-      <span class="count">已写 {{ diaries.length }} 篇</span>
-    </h3>
-
-    <div class="diary-list">
-      <div
-        class="diary-card"
-        v-for="(item, i) in diaries"
-        :key="i"
-        :style="{ animationDelay: (i * 0.06) + 's' }"
-      >
-        <div class="card-header">
-          <div class="author-info">
-            <div class="author-avatar" :class="item.author === boy ? 'boy' : 'girl'">
-              {{ item.author === boy ? '♂' : '♀' }}
-            </div>
-            <span class="author-name">{{ item.author }}</span>
-          </div>
-          <span class="card-date">{{ item.date }}</span>
-        </div>
-        <h4 class="card-title">{{ item.title }}</h4>
-        <p class="card-content">{{ item.content }}</p>
-      </div>
+  <div class="central bg">
+    <div class="title">
+      <h1>在这里写下我们的故事</h1>
     </div>
+    <h3>已写下 <b>{{ diaries.length }}</b> 篇日记</h3>
 
-    <div class="add-diary">
-      <div class="add-form" v-if="showForm">
-        <input
-          v-model="newTitle"
-          type="text"
-          placeholder="标题..."
-          class="form-input"
-        />
-        <textarea
-          v-model="newContent"
-          rows="3"
-          placeholder="写下今天想说的话..."
-          class="form-textarea"
-        ></textarea>
-        <div class="form-actions">
-          <select v-model="newAuthor" class="author-select">
-            <option :value="boy">{{ boy }}</option>
-            <option :value="girl">{{ girl }}</option>
-          </select>
-          <button class="btn-cancel" @click="showForm = false">取消</button>
-          <button class="btn-submit" @click="addDiary">发布</button>
+    <div class="row">
+      <div class="card col-12">
+        <!-- Diary entries -->
+        <div class="leavform animated fadeInUp" v-for="item in diaries" :key="item.title">
+          <div class="textinfo">
+            <div class="MsgTopInfo">
+              <i class="time">{{ item.date }}</i>
+            </div>
+            <div class="user_info">
+              <div class="avatar-circle" :class="item.author === boy ? 'boy-avatar' : 'girl-avatar'">
+                {{ item.author === boy ? '♂' : '♀' }}
+              </div>
+              <div class="head_content">
+                <span class="name">{{ item.author }}</span>
+              </div>
+            </div>
+            <h4 class="diary-title">{{ item.title }}</h4>
+            <div class="text">{{ item.content }}</div>
+          </div>
+        </div>
+
+        <!-- Input form -->
+        <div class="inputbox">
+          <textarea
+            id="wenben"
+            v-model="newContent"
+            rows="3"
+            placeholder="写下今天的恋爱日记..."
+          ></textarea>
+        </div>
+        <div class="inputbox" style="margin-top: 0; padding-top: 0; border-top: none;">
+          <input
+            class="rig"
+            type="text"
+            v-model="newTitle"
+            placeholder="标题"
+            style="width: 50%;"
+          />
+          <button class="submit-btn" @click="addDiary">发布日记</button>
         </div>
       </div>
-      <button class="btn-add" v-else @click="showForm = true">
-        + 写日记
-      </button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import defaultDiaries from '../config/diary.config'
+import diariesData from '../config/diary.config'
 import config from '../config/love.config'
 
-const { boy, girl } = config
-const STORAGE_KEY = 'couple_love_diaries'
-
-const loadDiaries = () => {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) return JSON.parse(stored)
-  } catch (e) { /* ignore */ }
-  return [...defaultDiaries]
-}
-
-const saveDiaries = () => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(diaries.value))
-}
-
-const diaries = ref(loadDiaries())
-const showForm = ref(false)
+const { boy } = config
+const diaries = ref([...diariesData])
 const newTitle = ref('')
 const newContent = ref('')
-const newAuthor = ref(boy)
 
 const addDiary = () => {
   if (!newTitle.value.trim() || !newContent.value.trim()) return
@@ -91,202 +69,188 @@ const addDiary = () => {
 
   diaries.value.unshift({
     title: newTitle.value.trim(),
-    author: newAuthor.value,
+    author: boy,
     content: newContent.value.trim(),
     date: dateStr
   })
-
-  saveDiaries()
   newTitle.value = ''
   newContent.value = ''
-  showForm.value = false
 }
 </script>
 
 <style scoped lang="scss">
-.diary-section {
-  margin-bottom: 24px;
+.central.bg {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 2rem;
+  padding: 1rem 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(208,206,206,0.4);
 }
 
-.section-title {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-light);
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-  padding-left: 4px;
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
+.title {
+  text-align: center;
+  padding: 1rem 0 0;
 
-.count {
-  font-size: 11px;
-  color: var(--pink-light);
-  letter-spacing: 1px;
-}
-
-.diary-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.diary-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 20px;
-  animation: fadeInUp 0.5s ease both;
-  transition: box-shadow 0.3s;
-
-  &:hover {
-    box-shadow: var(--shadow-hover);
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
   }
 }
 
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
+h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 1rem 0 1.5rem;
+  font-weight: 700;
+
+  b {
+    font-size: 2rem;
+    color: var(--gold);
+    text-shadow: 0 2px 3px rgba(255,183,17,0.36);
+  }
 }
 
-.author-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.card {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 0;
 }
 
-.author-avatar {
-  width: 32px;
-  height: 32px;
+.leavform {
+  margin: 1.2rem 0;
+}
+
+.textinfo {
+  padding: 1.2rem 1.2rem 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 35px 0 rgba(172,178,185,0.22);
+  transition: all 0.2s;
+  position: relative;
+}
+
+.textinfo:hover {
+  background: #f9f9f9;
+}
+
+.MsgTopInfo {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-style: normal;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.avatar-circle {
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 1.2rem;
   color: #fff;
-
-  &.boy {
-    background: linear-gradient(135deg, #a8d8ea, #7ec8e3);
-  }
-  &.girl {
-    background: linear-gradient(135deg, #f5a5b8, #e8788a);
-  }
+  box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+  border: 2px solid #fff;
+  flex-shrink: 0;
 }
 
-.author-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
+.boy-avatar { background: linear-gradient(135deg, #a8d8ea, #7ec8e3); }
+.girl-avatar { background: linear-gradient(135deg, #f5a5b8, #e8788a); }
+
+.head_content .name {
+  font-size: 1rem;
+  font-weight: 700;
 }
 
-.card-date {
-  font-size: 11px;
-  color: var(--text-light);
-}
-
-.card-title {
-  font-size: 16px;
-  font-weight: 600;
+.diary-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
   color: var(--pink);
-  margin-bottom: 8px;
 }
 
-.card-content {
-  font-size: 14px;
+.text {
+  margin-top: 0.6rem;
+  padding: 0.8rem 0;
+  color: #3d3d3d;
+  border-top: 1px dashed #e0e0e0;
   line-height: 1.8;
-  color: #666;
+  font-size: 0.95rem;
 }
 
-.add-diary {
-  text-align: center;
+.inputbox {
+  margin-top: 1.5rem;
+  padding: 1.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  border-top: 1px solid #e8e8e8;
+  flex-wrap: wrap;
 }
 
-.btn-add {
-  width: 100%;
-  padding: 14px;
-  background: var(--white);
-  border: 2px dashed var(--pink-light);
-  border-radius: var(--radius);
-  color: var(--pink);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+.inputbox input,
+#wenben {
+  border: none;
+  padding: 0.8rem 1.2rem;
+  box-shadow: 0 2px 10px 0 rgba(148,147,147,0.15);
+  border-radius: 0.8rem;
+  background: #f3f4f6;
+  font-size: 0.95rem;
   transition: all 0.3s;
+}
+
+.inputbox input:focus,
+#wenben:focus {
+  background: #fff;
+  box-shadow: 0 2px 15px 0 rgba(148,147,147,0.25);
+}
+
+#wenben {
+  width: 100%;
+  resize: vertical;
+}
+
+.rig {
+  flex: 1;
+  min-width: 120px;
+}
+
+.submit-btn {
+  padding: 0.8rem 1.5rem;
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Noto Serif SC', serif;
 
   &:hover {
-    border-color: var(--pink);
-    background: var(--pink-bg);
+    background: #e8507a;
   }
 }
 
-.add-form {
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.form-input,
-.form-textarea {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  background: #f5f5f5;
-  font-size: 14px;
-  transition: all 0.3s;
-  resize: vertical;
-
-  &:focus {
-    background: #fff;
-    box-shadow: 0 0 0 3px var(--pink-bg);
-  }
-}
-
-.form-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-.author-select {
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  border: 1px solid #e0e0e0;
-  font-size: 13px;
-  color: var(--text);
-  background: #f5f5f5;
-  margin-right: auto;
-}
-
-.btn-cancel {
-  padding: 8px 18px;
-  background: #eee;
-  border-radius: var(--radius-sm);
-  color: var(--text-light);
-  font-size: 13px;
-  font-weight: 600;
-  transition: all 0.2s;
-
-  &:hover { background: #e0e0e0; }
-}
-
-.btn-submit {
-  padding: 8px 22px;
-  background: var(--pink);
-  border-radius: var(--radius-sm);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  transition: all 0.2s;
-
-  &:hover { background: var(--pink-dark); }
+@media (max-width: 768px) {
+  .central.bg { border-radius: 1rem; padding: 0.5rem 1rem; }
+  .inputbox { flex-direction: column; }
+  .rig { width: 100% !important; }
+  .submit-btn { width: 100%; }
 }
 </style>

@@ -1,20 +1,11 @@
 <template>
-  <div class="timer-section">
-    <div class="timer-row">
-      <div class="timer-item">
-        <span class="num">{{ meetDays }}</span>
-        <span class="label">相识天数</span>
-      </div>
-      <div class="divider"></div>
-      <div class="timer-item highlight">
-        <span class="num">{{ loveDays }}</span>
-        <span class="label">相恋天数</span>
-      </div>
-      <div class="divider"></div>
-      <div class="timer-item countdown-item">
-        <span class="num countdown">{{ countdownDays }}</span>
-        <span class="label">{{ countdownLabel }}</span>
-      </div>
+  <div class="time">
+    <span>这是我们一起走过的</span>
+    <div class="time-digits">
+      <b>{{ loveDays }}</b><em>天</em>
+      <b>{{ loveHours }}</b><em>时</em>
+      <b>{{ loveMinutes }}</b><em>分</em>
+      <b>{{ loveSeconds }}</b><em>秒</em>
     </div>
   </div>
 </template>
@@ -22,40 +13,27 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import config from '../config/love.config'
-import dayjs from 'dayjs'
 
-const meetDays = ref(0)
 const loveDays = ref(0)
-const countdownDays = ref(0)
-const countdownLabel = ref('')
+const loveHours = ref(0)
+const loveMinutes = ref(0)
+const loveSeconds = ref(0)
 
 let timer = null
 
-const getNextMilestone = () => {
-  const now = dayjs()
-  const upcoming = config.milestones
-    .filter(m => m.date && dayjs(m.date).isAfter(now))
-    .sort((a, b) => dayjs(a.date).diff(dayjs(b.date)))[0]
-
-  if (upcoming) {
-    countdownLabel.value = `距"${upcoming.title}"`
-    return dayjs(upcoming.date).diff(now, 'day')
-  }
-  return null
-}
-
 const update = () => {
-  meetDays.value = dayjs().diff(dayjs(config.dates.meet), 'day')
-  loveDays.value = dayjs().diff(dayjs(config.dates.loveStart), 'day')
-  const cd = getNextMilestone()
-  if (cd !== null) {
-    countdownDays.value = cd
-  }
+  const birth = new Date(config.dates.loveStart + 'T00:00:00')
+  const now = new Date()
+  const diff = now - birth
+  loveDays.value = Math.floor(diff / (24 * 60 * 60 * 1000))
+  loveHours.value = Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000))
+  loveMinutes.value = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000))
+  loveSeconds.value = Math.floor((diff % (60 * 1000)) / 1000)
 }
 
 onMounted(() => {
   update()
-  timer = setInterval(update, 60000)
+  timer = setInterval(update, 1000)
 })
 
 onUnmounted(() => {
@@ -64,55 +42,41 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-.timer-section {
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 28px 16px;
-  margin-bottom: 24px;
-  animation: fadeInUp 0.6s ease both;
-}
-
-.timer-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.timer-item {
+.time {
   text-align: center;
-  flex: 1;
+  padding: 2rem 0 1rem;
+
+  span {
+    font-size: 1.5rem;
+    display: block;
+    background-image: linear-gradient(270deg, #ff4500, #ffa500, #ffd700, #90ee90, #00ffff, #1e90ff, #9370db, #ff69b4, #ff4500);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow 60s linear infinite;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
 }
 
-.num {
-  display: block;
-  font-size: 30px;
+.time-digits {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+b {
+  font-size: 2.5rem;
   font-weight: 700;
-  color: var(--text);
-  line-height: 1.3;
+  color: #4a4a4a;
 }
 
-.highlight .num {
-  color: var(--pink);
-}
-
-.countdown {
-  color: var(--gold);
-}
-
-.label {
-  display: block;
-  font-size: 11px;
+em {
+  font-style: normal;
+  font-size: 1rem;
   color: var(--text-light);
-  margin-top: 4px;
-  letter-spacing: 0.5px;
-  line-height: 1.4;
-}
-
-.divider {
-  width: 1px;
-  height: 40px;
-  background: var(--pink-bg);
-  border-radius: 1px;
+  margin-right: 0.8rem;
 }
 </style>
