@@ -100,7 +100,7 @@ const { boy, girl } = config
   justify-content: space-around;
   backdrop-filter: blur(20px);
   background: rgba(207,207,207,0.63);
-  padding: 2.5rem 1.5rem;
+  padding: 5rem 1.5rem;
   border-radius: 3rem;
   user-select: none;
   animation: fadeInDown 0.8s ease;
