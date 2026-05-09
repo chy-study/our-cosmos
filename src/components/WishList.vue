@@ -1,7 +1,7 @@
 <template>
   <div class="central">
     <div class="title">
-      <h1>总有些惊奇的际遇 比方说当我遇见你</h1>
+      <h1>心愿清单</h1>
     </div>
     <div class="card">
       <div class="list_texts">
