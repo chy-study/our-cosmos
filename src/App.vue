@@ -9,7 +9,7 @@
       <div class="logo">
         <h1>{{ boy }} & {{ girl }}</h1>
       </div>
-      <div class="word">{{ subtitle }}</div>
+      <div class="word">{{ dailyQuote }}</div>
     </div>
   </div>
 
@@ -68,13 +68,6 @@
             <p>在这里写下我们的故事</p>
           </div>
         </div>
-        <div class="card flex-h animated fadeInUp delay-2" @click="scrollTo('quotes')">
-          <div class="card-icon">💌</div>
-          <div class="text">
-            <span>每日情话</span>
-            <p>世界上最浪漫的情话</p>
-          </div>
-        </div>
         <div class="card-b flex-h animated fadeInUp delay-3" @click="scrollTo('character')">
           <div class="card-icon">💑</div>
           <div class="text">
@@ -95,10 +88,6 @@
     <!-- Sections -->
     <div id="character" class="section">
       <CoupleCharacter />
-    </div>
-
-    <div id="quotes" class="section">
-      <LoveQuotes />
     </div>
 
     <div id="timeline" class="section">
@@ -137,16 +126,28 @@
 import LoveTimer from './components/LoveTimer.vue'
 import MilestoneTimeline from './components/MilestoneTimeline.vue'
 import CoupleCharacter from './components/CoupleCharacter.vue'
-import LoveQuotes from './components/LoveQuotes.vue'
 import DiaryList from './components/DiaryList.vue'
 import WishList from './components/WishList.vue'
 import MusicPlayer from './components/MusicPlayer.vue'
 import FestivalEffects from './components/FestivalEffects.vue'
 import HeartClickEffect from './components/HeartClickEffect.vue'
 import config from './config/love.config'
+import quotes from './config/quotes.config'
 
 const { boy, girl } = config
-const subtitle = '爱晨雾漫过青瓦，爱暮色染透篱笆，更爱与君并肩立，看遍这人间烟火里的朝暮与年华。'
+
+function hashDate(dateStr) {
+  let hash = 0
+  for (let i = 0; i < dateStr.length; i++) {
+    hash = ((hash << 5) - hash) + dateStr.charCodeAt(i)
+    hash |= 0
+  }
+  return Math.abs(hash)
+}
+
+const now = new Date()
+const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+const dailyQuote = quotes[hashDate(today) % quotes.length]
 
 const scrollTo = (id) => {
   const el = document.getElementById(id)
