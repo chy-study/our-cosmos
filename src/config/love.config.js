@@ -1,6 +1,6 @@
 export default {
-  boy: '陈鸿宇',
-  girl: '张陈敏',
+  boy: 'CHEN',
+  girl: 'MIN',
 
   dates: {
     meet: '2025-03-16',
