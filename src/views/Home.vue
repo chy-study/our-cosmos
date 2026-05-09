@@ -55,7 +55,7 @@
               <p>在这里写下我们的故事</p>
             </div>
           </div>
-          <div class="card-b flex-h animated fadeInUp delay-3" @click="$router.push('/wish')">
+          <div class="card flex-h animated fadeInUp delay-2" @click="$router.push('/wish')">
             <div class="card-icon">✨</div>
             <div class="text">
               <span>心愿清单</span>
@@ -195,25 +195,6 @@ const { boy, girl } = config
   border-color: transparent;
 }
 
-.card-b {
-  grid-column: span 6;
-  width: 90%;
-  margin: 0 auto;
-  padding: 1.5rem;
-  border-radius: 2rem;
-  background: #fff;
-  box-shadow: var(--card-shadow);
-  border: 1px solid rgba(208,206,206,0.4);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.card-b:hover {
-  box-shadow: var(--card-hover-shadow);
-  background: #f8f8f8;
-  border-color: transparent;
-}
-
 .flex-h {
   display: flex;
   align-items: center;
@@ -226,8 +207,7 @@ const { boy, girl } = config
   transition: transform 0.5s;
 }
 
-.card:hover .card-icon,
-.card-b:hover .card-icon {
+.card:hover .card-icon {
   transform: rotate(-20deg) scale(1.1);
 }
 
@@ -252,7 +232,6 @@ const { boy, girl } = config
 
 @media (max-width: 768px) {
   .card { grid-column: span 6; }
-  .card-b { grid-column: span 12; width: 100%; }
   .avatar-circle { width: 4rem; height: 4rem; font-size: 1.5rem; }
   .middle { border-radius: 2rem; padding: 1.5rem 1rem; }
 }
