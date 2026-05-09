@@ -55,14 +55,7 @@
               <p>在这里写下我们的故事</p>
             </div>
           </div>
-          <div class="card-b flex-h animated fadeInUp delay-3" @click="$router.push('/character')">
-            <div class="card-icon">💑</div>
-            <div class="text">
-              <span>情侣互动</span>
-              <p>点一点，看看Ta的心情</p>
-            </div>
-          </div>
-          <div class="card-b flex-h animated fadeInUp delay-4" @click="$router.push('/wish')">
+          <div class="card-b flex-h animated fadeInUp delay-3" @click="$router.push('/wish')">
             <div class="card-icon">✨</div>
             <div class="text">
               <span>心愿清单</span>
