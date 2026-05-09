@@ -32,7 +32,7 @@
             id="wenben"
             v-model="newContent"
             rows="3"
-            placeholder="写下今天的恋爱日记..."
+            placeholder="写下今天的日记..."
           ></textarea>
         </div>
         <div class="inputbox" style="margin-top: 0; padding-top: 0; border-top: none;">

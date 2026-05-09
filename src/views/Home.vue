@@ -51,7 +51,7 @@
           <div class="card flex-h animated fadeInUp delay-1" @click="$router.push('/diary')">
             <div class="card-icon">📝</div>
             <div class="text">
-              <span>恋爱日记</span>
+              <span>日记</span>
               <p>在这里写下我们的故事</p>
             </div>
           </div>
