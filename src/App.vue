@@ -102,8 +102,8 @@ const scrollToTop = () => {
 }
 
 .word {
-  font-weight: 400;
-  font-size: 0.9rem;
+  font-size: 1.3rem;
+  font-weight: 700;
   text-align: right;
   overflow: hidden;
   text-overflow: ellipsis;
