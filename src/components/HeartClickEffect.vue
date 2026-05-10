@@ -11,7 +11,8 @@ onMounted(() => {
     if (e.target.closest('button, input, textarea, select, .character-card, .music-player')) return
 
     const heart = document.createElement('div')
-    heart.innerHTML = ['❤', '💕', '💖', '💗', '♥'][Math.floor(Math.random() * 5)]
+    const emojis = ['❤️', '💕', '💖', '💗', '💓', '🧡', '💛', '❤', '💚']
+    heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)]
     heart.style.cssText = `
       position: fixed;
       left: ${e.clientX}px;
@@ -19,6 +20,7 @@ onMounted(() => {
       font-size: ${14 + Math.random() * 16}px;
       pointer-events: none;
       z-index: 9999;
+      color: #ff5c8a;
       animation: heartFloatClick 1.2s ease-out forwards;
       transform: translate(-50%, -50%);
     `
