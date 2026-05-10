@@ -60,35 +60,29 @@ onUnmounted(() => {
 }
 
 .time-digits {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0;
-  flex-wrap: wrap;
+  text-align: center;
 }
 
 .digit-group {
   display: inline-flex;
   align-items: baseline;
-  justify-content: flex-end;
-  min-width: 4.5em;
-}
-
-.digit-group:first-child {
-  min-width: 7em;
+  justify-content: center;
+  width: 5em;
 }
 
 b {
   font-size: 2.5rem;
   font-weight: 700;
   color: #4a4a4a;
-  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  text-align: center;
+  width: 2.8em;
 }
 
 em {
   font-style: normal;
   font-size: 1rem;
   color: var(--text-light);
-  margin-right: 0.8rem;
+  margin-left: 0.15em;
 }
 </style>
