@@ -46,7 +46,7 @@
           <div class="card flex-h animated fadeInUp delay-2" @click="$router.push('/wish')">
             <div class="card-icon">✨</div>
             <div class="text">
-              <span>心愿清单</span>
+              <span>心愿</span>
               <p>你我之间的约定</p>
             </div>
           </div>

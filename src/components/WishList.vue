@@ -1,7 +1,7 @@
 <template>
   <div class="central">
     <div class="title">
-      <h1>心愿清单</h1>
+      <h1>心愿</h1>
     </div>
     <div class="card">
       <div class="list_texts">
