@@ -2,9 +2,7 @@
   <div class="music-player" :class="{ playing: isPlaying }" @click="toggle" :title="isPlaying ? '暂停' : '播放'">
     <span class="music-icon">🎵</span>
     <span class="music-note" v-if="isPlaying">♪</span>
-    <audio ref="audioRef" loop preload="auto">
-      <source src="/src/assets/music/kiss_the_rain.m4a" type="audio/mp4" />
-    </audio>
+    <audio ref="audioRef" preload="auto" @ended="nextSong" />
   </div>
 </template>
 
@@ -13,6 +11,35 @@ import { onMounted, ref } from 'vue'
 
 const audioRef = ref(null)
 const isPlaying = ref(false)
+
+const musicModules = import.meta.glob('../assets/music/*.{mp3,m4a}', { eager: true, query: '?url', import: 'default' })
+const musicUrls = Object.values(musicModules)
+
+function pickRandom(excludeUrl) {
+  const pool = excludeUrl && musicUrls.length > 1
+    ? musicUrls.filter(u => u !== excludeUrl)
+    : musicUrls
+  return pool[Math.floor(Math.random() * pool.length)]
+}
+
+function setSource(url) {
+  const audio = audioRef.value
+  if (!audio) return
+  audio.src = url
+  audio.load()
+}
+
+function nextSong() {
+  const audio = audioRef.value
+  if (!audio) return
+  const newUrl = pickRandom(audio.src)
+  setSource(newUrl)
+  audio.play().then(() => {
+    isPlaying.value = true
+  }).catch(() => {
+    isPlaying.value = false
+  })
+}
 
 const toggle = () => {
   const audio = audioRef.value
@@ -33,6 +60,9 @@ const toggle = () => {
 onMounted(() => {
   const audio = audioRef.value
   if (!audio) return
+
+  // Set initial random source
+  setSource(pickRandom())
 
   // Try autoplay
   audio.play().then(() => {
