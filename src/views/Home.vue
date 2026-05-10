@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-wrapper">
     <!-- Hero Section -->
     <div class="bg-wrap">
       <div class="bg-img" :style="{ backgroundImage: `url(${bgImg})` }">
@@ -113,6 +113,13 @@ const { boy, girl } = config
 .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
 .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
 .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+
+.home-wrapper {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
 
 /* ===== Main Content ===== */
 .main-content {
