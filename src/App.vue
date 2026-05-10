@@ -1,8 +1,6 @@
 <template>
   <FestivalEffects />
   <HeartClickEffect />
-  <MusicPlayer />
-
   <!-- Fixed Header -->
   <div class="header-wrap">
     <div class="header">
@@ -21,6 +19,9 @@
   <!-- Floating Sidebar -->
   <div class="sidebar">
     <ul>
+      <li class="sidebar-item music-item">
+        <MusicPlayer />
+      </li>
       <li class="sidebar-item" title="返回顶部" @click="scrollToTop">
         <svg viewBox="0 0 1024 1024" width="20" height="20"><path d="M898.346667 932.693333c-9.088 9.088-18.176 9.088-31.744 4.565334L512.853333 738.133333l-354.346666 200.234667c-13.653333 4.522667-22.741333 4.522667-31.786667-4.522667-9.045333-9.045333-9.045333-18.133333-9.045333-27.221333l373.418666-835.626667c0.042667-9.045333 13.653333-13.653333 22.741334-13.653333 9.088 0 18.133333 9.045333 22.656 13.568l366.421333 839.125333c4.48 4.522667-0.042667 18.133333-4.608 22.698667z" fill="#ffffff"/></svg>
       </li>
@@ -120,7 +121,7 @@ const scrollToTop = () => {
 .sidebar {
   position: fixed;
   right: 1rem;
-  bottom: 6rem;
+  bottom: 3rem;
   z-index: 99;
 }
 

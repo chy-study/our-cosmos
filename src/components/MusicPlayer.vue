@@ -56,30 +56,18 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .music-player {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  width: 42px;
-  height: 42px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 100;
   transition: all 0.3s;
-  backdrop-filter: blur(8px);
-
-  &:hover {
-    transform: scale(1.08);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  }
 
   &.playing {
     background: var(--pink-bg);
-    box-shadow: 0 2px 12px rgba(255, 100, 140, 0.15);
 
     .music-icon {
       animation: float 2s infinite ease-in-out;
@@ -89,6 +77,7 @@ onMounted(() => {
 
 .music-icon {
   font-size: 18px;
+  filter: brightness(0) invert(1);
   transition: all 0.3s;
 }
 
