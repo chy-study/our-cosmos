@@ -1,11 +1,11 @@
 <template>
   <div class="time">
-    <span>这是我们一起走过的</span>
+    <span class="time-title">这是我们一起走过的</span>
     <div class="time-digits">
-      <b>{{ loveDays }}</b><em>天</em>
-      <b>{{ loveHours }}</b><em>时</em>
-      <b>{{ loveMinutes }}</b><em>分</em>
-      <b>{{ loveSeconds }}</b><em>秒</em>
+      <span class="digit-group"><b>{{ loveDays }}</b><em>天</em></span>
+      <span class="digit-group"><b>{{ loveHours }}</b><em>时</em></span>
+      <span class="digit-group"><b>{{ loveMinutes }}</b><em>分</em></span>
+      <span class="digit-group"><b>{{ loveSeconds }}</b><em>秒</em></span>
     </div>
   </div>
 </template>
@@ -46,7 +46,7 @@ onUnmounted(() => {
   text-align: center;
   padding: 2rem 0 1rem;
 
-  span {
+  .time-title {
     font-size: 1.5rem;
     display: block;
     background-image: linear-gradient(270deg, #ff4500, #ffa500, #ffd700, #90ee90, #00ffff, #1e90ff, #9370db, #ff69b4, #ff4500);
@@ -67,10 +67,22 @@ onUnmounted(() => {
   flex-wrap: wrap;
 }
 
+.digit-group {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  min-width: 4.5em;
+}
+
+.digit-group:first-child {
+  min-width: 7em;
+}
+
 b {
   font-size: 2.5rem;
   font-weight: 700;
   color: #4a4a4a;
+  font-variant-numeric: tabular-nums;
 }
 
 em {
