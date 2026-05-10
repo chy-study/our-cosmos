@@ -3,7 +3,7 @@
     <span class="music-icon">🎵</span>
     <span class="music-note" v-if="isPlaying">♪</span>
     <audio ref="audioRef" loop preload="auto">
-      <source src="/bg.mp3" type="audio/mpeg" />
+      <source src="/src/assets/music/kiss_the_rain.m4a" type="audio/mp4" />
     </audio>
   </div>
 </template>
