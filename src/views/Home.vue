@@ -2,7 +2,7 @@
   <div>
     <!-- Hero Section -->
     <div class="bg-wrap">
-      <div class="bg-img">
+      <div class="bg-img" :style="{ backgroundImage: `url(${bgImg})` }">
         <div class="central central-800">
           <div class="middle animated fadeInDown">
             <LoveAvatars :boy="boy" :girl="girl" />
@@ -60,6 +60,7 @@
 import LoveTimer from '../components/LoveTimer.vue'
 import LoveAvatars from '../components/LoveAvatars.vue'
 import config from '../config/love.config'
+import bgImg from '../assets/images/bg.png'
 
 const { boy, girl } = config
 </script>
@@ -72,7 +73,9 @@ const { boy, girl } = config
 
 .bg-img {
   width: 100%;
-  background: linear-gradient(135deg, #fce4ec, #f8bbd0, #f48fb1);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   padding-top: 5rem;
   position: relative;
 }
