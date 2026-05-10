@@ -5,19 +5,7 @@
       <div class="bg-img">
         <div class="central central-800">
           <div class="middle animated fadeInDown">
-            <div class="img-male">
-              <div class="avatar-circle boy-avatar">♂</div>
-              <span>{{ boy }}</span>
-            </div>
-            <div class="love-icon">
-              <svg viewBox="0 0 1024 1024" width="56" height="56">
-                <path d="M866.944 256.768c-95.488-95.488-250.496-95.488-345.984 0l-13.312 13.312-9.472-9.472c-93.824-93.824-246.656-100.736-343.68-10.368-101.888 94.976-104.064 254.592-6.4 352.256l13.568 13.568 299.264 299.264c25.728 25.728 67.584 25.728 93.44 0l312.576-312.576c95.488-95.488 95.488-250.368 0-345.984z" fill="#ff5c8a"/>
-              </svg>
-            </div>
-            <div class="img-female">
-              <div class="avatar-circle girl-avatar">♀</div>
-              <span>{{ girl }}</span>
-            </div>
+            <LoveAvatars :boy="boy" :girl="girl" />
           </div>
         </div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none">
@@ -70,6 +58,7 @@
 
 <script setup>
 import LoveTimer from '../components/LoveTimer.vue'
+import LoveAvatars from '../components/LoveAvatars.vue'
 import config from '../config/love.config'
 
 const { boy, girl } = config
@@ -104,44 +93,6 @@ const { boy, girl } = config
   border-radius: 3rem;
   user-select: none;
   animation: fadeInDown 0.8s ease;
-}
-
-.img-male, .img-female {
-  text-align: center;
-}
-
-.avatar-circle {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.2rem;
-  color: #fff;
-  margin: 0 auto;
-  border: 0.2rem solid #fff;
-}
-
-.boy-avatar {
-  background: linear-gradient(135deg, #a8d8ea, #7ec8e3);
-}
-
-.girl-avatar {
-  background: linear-gradient(135deg, #f5a5b8, #e8788a);
-}
-
-.img-male span, .img-female span {
-  display: block;
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 0.6rem;
-  color: #fff;
-  font-weight: 700;
-}
-
-.love-icon {
-  animation: heartbeat 2s linear infinite;
 }
 
 .waves {
@@ -232,7 +183,6 @@ const { boy, girl } = config
 
 @media (max-width: 768px) {
   .card { grid-column: span 6; }
-  .avatar-circle { width: 4rem; height: 4rem; font-size: 1.5rem; }
   .middle { border-radius: 2rem; padding: 1.5rem 1rem; }
 }
 </style>
