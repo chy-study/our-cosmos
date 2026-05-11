@@ -11,7 +11,7 @@ onMounted(() => {
     if (e.target.closest('button, input, textarea, select, .character-card, .music-player')) return
 
     const heart = document.createElement('div')
-    const emojis = ['❤️', '💕', '💖', '💗', '💓', '🧡', '💛', '❤', '💚']
+    const emojis = ['❤️', '💕', '💖', '💗', '💓', '🧡', '💛', '❤', '💚', '💙', '💜', '🤎']
     heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)]
     heart.style.cssText = `
       position: fixed;
