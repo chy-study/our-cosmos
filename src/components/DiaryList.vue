@@ -14,9 +14,11 @@
               <i class="time">{{ item.date }}</i>
             </div>
             <div class="user_info">
-              <div class="avatar-circle" :class="item.author === boy ? 'boy-avatar' : 'girl-avatar'">
-                {{ item.author === boy ? '♂' : '♀' }}
-              </div>
+              <img
+                class="avatar-img"
+                :src="item.author === boy ? boyImg : girlImg"
+                :alt="item.author"
+              />
               <div class="head_content">
                 <span class="name">{{ item.author }}</span>
               </div>
@@ -54,6 +56,8 @@
 import { ref } from 'vue'
 import diariesData from '../config/diary.config'
 import config from '../config/love.config'
+import boyImg from '../assets/images/boy.jpg'
+import girlImg from '../assets/images/girl.jpg'
 
 const { boy } = config
 const diaries = ref([...diariesData])
@@ -154,22 +158,15 @@ h3 {
   gap: 0.8rem;
 }
 
-.avatar-circle {
+.avatar-img {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  color: #fff;
+  object-fit: cover;
   box-shadow: 0 2px 15px rgba(0,0,0,0.15);
   border: 2px solid #fff;
   flex-shrink: 0;
 }
-
-.boy-avatar { background: linear-gradient(135deg, #a8d8ea, #7ec8e3); }
-.girl-avatar { background: linear-gradient(135deg, #f5a5b8, #e8788a); }
 
 .head_content .name {
   font-size: 1rem;
