@@ -6,7 +6,7 @@ export default [
   { title: '一起徒步军嶂古道小环线', done: true, detail: '李子线，摘了好多李子~' },
   { title: '一起去看海', done: false, detail: '想去三亚或者厦门，看日出日落' },
   { title: '一起去东北', done: false, detail: '东北二人转' },
-  { title: '一起跨年', done: true, detail: '2026年一起迎接新年' },
+  { title: '一起跨年', done: false, detail: '2026年一起迎接新年' },
   { title: '一起做饭', done: false, detail: '学做对方最爱吃的菜' },
   { title: '一起拍情侣写真', done: false, detail: '记录最美的我们' },
   { title: '一起坐摩天轮', done: false, detail: '在最高处看风景' },
